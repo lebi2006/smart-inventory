@@ -36,9 +36,9 @@ function App() {
           <Route path="/categories" element={<ProtectedRoute><Categories /></ProtectedRoute>} />
           <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
           <Route path="/activity" element={<ProtectedRoute><ActivityLog /></ProtectedRoute>} />
-          // Inside Routes — CustomerMenu is PUBLIC (no ProtectedRoute)
+          {/* Inside Routes — CustomerMenu is PUBLIC (no ProtectedRoute) */}
           <Route path="/menu" element={<CustomerMenu />} />
-          // These are protected
+          {/* These are protected */}
           <Route path="/pos" element={<ProtectedRoute><POS /></ProtectedRoute>} />
           <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
           <Route path="/table-qr" element={<ProtectedRoute><TableQR /></ProtectedRoute>} />

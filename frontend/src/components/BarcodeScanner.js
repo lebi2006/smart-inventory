@@ -10,6 +10,7 @@ export default function BarcodeScanner({ onDetected, onClose }) {
   useEffect(() => {
     startScanner();
     return () => stopScanner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startScanner = () => {

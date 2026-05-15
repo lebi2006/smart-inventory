@@ -55,3 +55,15 @@ def delete_supplier(
         raise HTTPException(status_code=404, detail="Supplier not found")
     db.delete(supplier)
     db.commit()
+
+@router.put("/{supplier_id}")
+def update_supplier(supplier_id: int, data: dict, db: Session = Depends(get_db),
+                    current_user = Depends(require_manager_or_above)):
+    supplier = db.query(Supplier).filter(Supplier.id == supplier_id).first()
+    if not supplier:
+        raise HTTPException(status_code=404, detail="Supplier not found")
+    for key, value in data.items():
+        setattr(supplier, key, value)
+    db.commit()
+    db.refresh(supplier)
+    return supplier

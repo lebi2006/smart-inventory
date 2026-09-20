@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const BASE_URL = 'http://localhost:3000'; // Change to your deployed domain later
+const BASE_URL = 'https://smart-inventory-wv6v.vercel.app'; // Change to your deployed domain later
 
 export default function TableQR() {
   const [tableCount, setTableCount] = useState(5);

@@ -2,7 +2,16 @@
 
 A production-ready SaaS inventory management system with a built-in Point of Sale (POS) and customer self-ordering system. Built with FastAPI, React, and PostgreSQL.
 
----
+🔗 **Live Demo**: [https://smart-inventory-wv6v.vercel.app](https://smart-inventory-wv6v.vercel.app)
+🔗 **API Docs**: [https://smart-inventory-backend-vlqo.onrender.com/docs](https://smart-inventory-backend-vlqo.onrender.com/docs)
+
+> **Note**: The backend runs on Render's free tier and may take 30–50 seconds to respond after a period of inactivity. This is expected behaviour on the free plan.
+
+## Demo Credentials
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@example.com | Admin@1234 |
 
 ## Features
 
@@ -31,26 +40,26 @@ A production-ready SaaS inventory management system with a built-in Point of Sal
 - **Auto stock deduction** — Stock updates instantly when an order is placed
 - **Order confirmation** — Receipt shown after successful order
 
----
-
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
 | Backend | FastAPI, Python 3.11 |
-| Database | PostgreSQL 18, SQLAlchemy, Alembic |
+| Database | PostgreSQL, SQLAlchemy |
 | Auth | JWT (python-jose), bcrypt |
 | Frontend | React.js, Tailwind CSS |
 | Charts | Recharts |
 | Barcode | @ericblade/quagga2 |
 | Exports | openpyxl, reportlab |
 | Forecasting | NumPy |
-
----
+| Hosting (Backend) | Render |
+| Hosting (Frontend) | Vercel |
+| Database Hosting | Neon |
 
 ## Project Structure
 
 ```
+
 smart-inventory/
 ├── backend/
 │   ├── app/
@@ -72,34 +81,25 @@ smart-inventory/
     │   ├── context/         # AuthContext
     │   └── utils/           # downloadFile helper
     └── package.json
-```
 
----
+```
 
 ## Local Setup
 
 ### Prerequisites
 - Python 3.11+
 - Node.js 18+
-- PostgreSQL 18
+- PostgreSQL
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/smart-inventory.git
+git clone https://github.com/lebi2006/smart-inventory.git
 cd smart-inventory
 ```
 
 ### 2. Backend setup
 ```bash
 cd backend
-python -m venv venv
-
-# Windows
-venv\Scripts\activate
-
-# Mac / Linux
-source venv/bin/activate
-
 pip install -r requirements.txt
 ```
 
@@ -109,11 +109,6 @@ DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/smart_inventory
 SECRET_KEY=your-secret-key-change-this-in-production
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
-```
-
-Create the database in PostgreSQL:
-```sql
-CREATE DATABASE smart_inventory;
 ```
 
 Start the backend:
@@ -130,11 +125,21 @@ npm install
 npm start
 ```
 
+Create a `.env` file in the `frontend/` folder:
+```env
+REACT_APP_API_URL=http://localhost:8000
+```
+
 The app will open at `http://localhost:3000`.
 
-### 4. First login
+### 4. First Admin account
 
-Register an admin account at `http://localhost:3000` and select the Admin role.
+On first run with an empty database, call this once to create the Admin account:
+```bash
+curl -X POST http://localhost:8000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email": "admin@example.com", "password": "Admin@1234", "name": "Admin"}'
+```
 
 ---
 
@@ -162,7 +167,7 @@ Register an admin account at `http://localhost:3000` and select the Admin role.
 | GET | `/api/exports/products/excel` | Export inventory as Excel |
 | GET | `/api/exports/products/pdf` | Export inventory as PDF |
 
-Full interactive docs: `http://127.0.0.1:8000/docs`
+Full interactive docs: [https://smart-inventory-backend-vlqo.onrender.com/docs](https://smart-inventory-backend-vlqo.onrender.com/docs)
 
 ---
 
@@ -201,16 +206,26 @@ Full interactive docs: `http://127.0.0.1:8000/docs`
 
 ## Deployment
 
-### Update before deploying
-1. In `CustomerMenu.js` — replace `const UPI_ID = "yourname@upi"` with the client's real UPI ID
-2. In `TableQR.js` — replace `const BASE_URL = 'http://localhost:3000'` with the deployed domain
-3. In `backend/.env` — set a strong `SECRET_KEY`
-4. In `backend/main.py` — restrict CORS to your deployed frontend domain
+### Hosted on
+- **Backend**: Render — [https://smart-inventory-backend-vlqo.onrender.com](https://smart-inventory-backend-vlqo.onrender.com)
+- **Frontend**: Vercel — [https://smart-inventory-wv6v.vercel.app](https://smart-inventory-wv6v.vercel.app)
+- **Database**: Neon (PostgreSQL)
 
-### Recommended platforms
-- **Backend**: Render (free tier), Railway, or DigitalOcean
-- **Frontend**: Vercel or Netlify (free)
-- **Database**: Render PostgreSQL, Railway, or Supabase (free tiers available)
+### Environment variables required
+
+**Backend (.env)**
+```env
+DATABASE_URL=your_neon_connection_string
+SECRET_KEY=your_secret_key
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+FRONTEND_URL=your_vercel_url
+```
+
+**Frontend (.env)**
+```env
+REACT_APP_API_URL=your_render_backend_url
+```
 
 ---
 
@@ -221,3 +236,4 @@ MIT License — free to use, modify, and sell to clients.
 ---
 
 *Built with FastAPI + React + PostgreSQL*
+```

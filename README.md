@@ -3,6 +3,7 @@
 A production-ready SaaS inventory management system with a built-in Point of Sale (POS) and customer self-ordering system. Built with FastAPI, React, and PostgreSQL.
 
 🔗 **Live Demo**: [https://smart-inventory-wv6v.vercel.app](https://smart-inventory-wv6v.vercel.app)
+
 🔗 **API Docs**: [https://smart-inventory-backend-vlqo.onrender.com/docs](https://smart-inventory-backend-vlqo.onrender.com/docs)
 
 > **Note**: The backend runs on Render's free tier and may take 30–50 seconds to respond after a period of inactivity. This is expected behaviour on the free plan.

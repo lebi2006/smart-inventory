@@ -236,4 +236,3 @@ MIT License — free to use, modify, and sell to clients.
 ---
 
 *Built with FastAPI + React + PostgreSQL*
-```
